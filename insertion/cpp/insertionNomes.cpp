@@ -19,12 +19,6 @@ int main(int argc, char *argv[2])
         vetor.push_back(aux);
     }
 
-    // for (int i = 0; i < std::size(vetor); i++)
-    // {
-    //     std::cout << vetor[i] << ", ";
-    // }
-    // std::cout << "\nsort\n";
-
     inicio = clock();
 
     for (int i = 0; i < std::size(vetor) - 1; i++)
@@ -45,13 +39,7 @@ int main(int argc, char *argv[2])
     }
 
     fim = clock();
-
-    // for (int i = 0; i < std::size(vetor); i++)
-    // {
-    //     std::cout << vetor[i] << ", ";
-    // }
-    
-    output << argv[1] << "," << (float)(((fim - inicio) + 0.0) / CLOCKS_PER_SEC) << "," << comp << "," << swap << "\n";
+    output << argv[1] << "," << float(((fim - inicio) + 0.0) / CLOCKS_PER_SEC) << "," << comp << "," << swap << "\n";
 
     return 0;
 }

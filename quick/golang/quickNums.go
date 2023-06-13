@@ -7,32 +7,36 @@ import (
 	"time"
 )
 
-func partition(arr []int, low, high int, comp, swap *int) ([]int, int) {
-	pivot := arr[high]
-	i := low
-	for j := low; j < high; j++ {
-		*comp++
-		if arr[j] < pivot {
-			arr[i], arr[j] = arr[j], arr[i]
+
+func QuickSort(values []int, began, end int, comp, swap *int) {
+	i := began
+	j := end -1
+	pivo := values[(began + end) / 2]
+
+	for i <= j {
+		for values[i] < pivo && i < end {
+			i++
+			*comp+=2
+		}
+		for values[j] > pivo && j > began {
+			j--
+			*comp+=2
+		}
+		if i<=j {
+			values[i], values[j] = values[j], values[i]
 			*swap++
 			i++
+			j--
 		}
 	}
-	arr[i], arr[high] = arr[high], arr[i]
-	*swap++
-	return arr, i
+	if j > began {
+		QuickSort(values, began, j+1, comp, swap)
+	}
+	if i < end {
+		QuickSort(values, i, end, comp, swap)
+	}
 }
 
-func quickSort(arr []int, low, high int, comp, swap *int) []int {
-	*comp++
-	if low < high {
-		var p int
-		arr, p = partition(arr, low, high, comp, swap)
-		arr = quickSort(arr, low, p-1, comp, swap)
-		arr = quickSort(arr, p+1, high, comp, swap)
-	}
-	return arr
-}
 
 func main() {
 	input, err := os.Open("numeros 1.txt")
@@ -55,20 +59,11 @@ func main() {
 		vetor = append(vetor, aux)
 	}
 
-	// for _, v := range vetor {
-	// 	print(v)
-	// 	print(" ")
-	// }
-	// println()
 
 	inicio := time.Now()
-	quickSort(vetor, 0, num-1, &comp, &swap)
+	QuickSort(vetor, 0, num, &comp, &swap)
 	fim := time.Now()
 
-	// for _, v := range vetor {
-	// 	print(v)
-	// 	print(" ")
-	// }
 
 	fmt.Fprintf(output, "%s,%v,%d,%d\n", os.Args[1], float64(fim.Sub(inicio).Seconds()), comp, swap)
 

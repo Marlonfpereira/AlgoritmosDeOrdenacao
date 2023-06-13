@@ -18,12 +18,13 @@ void quicksort(vector<T> &values, int began, int end, unsigned long &comp, unsig
         while (values[i] < pivo && i < end)
         {
             i++;
+            comp += 2;
         }
         while (values[j] > pivo && j > began)
         {
             j--;
+            comp += 2;
         }
-        comp++;
         if (i <= j)
         {
             aux = values[i];
@@ -34,19 +35,22 @@ void quicksort(vector<T> &values, int began, int end, unsigned long &comp, unsig
             j--;
         }
     }
+
     if (j > began)
         quicksort(values, began, j + 1, comp, swap);
     if (i < end)
         quicksort(values, i, end, comp, swap);
+
 }
 
 int main(int argc, char *argv[2])
 {
+
     ifstream input("nomes 1.txt");
     ofstream output("./quickCppNomes.txt", ios_base::app);
     vector<string> vetor;
     string aux;
-    unsigned long comp = 0, swap = 0;
+    unsigned long comp = 99, swap = 0;
     clock_t inicio, fim;
 
     for (int i = 0; i < atoi(argv[1]); i++)
@@ -56,7 +60,6 @@ int main(int argc, char *argv[2])
     }
 
     inicio = clock();
-
     quicksort(vetor, 0, size(vetor), comp, swap);
 
     fim = clock();

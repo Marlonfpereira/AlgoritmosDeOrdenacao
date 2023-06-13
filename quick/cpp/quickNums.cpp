@@ -23,7 +23,7 @@ void quicksort(vector<T> &values, int began, int end, unsigned long &comp, unsig
         while (values[j] > pivo && j > began)
         {
             j--;
-        comp+=2;
+            comp+=2;
         }
         if (i <= j)
         {

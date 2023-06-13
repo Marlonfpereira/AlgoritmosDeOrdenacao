@@ -4,7 +4,7 @@
 using namespace std;
 
 void run(string call) {
-    for (int i = 10; i <= 100000; i*=10)
+    for (int i = 1000; i <= 100000; i+=1000)
     {
         char aux[7];
         string chamada = call;
@@ -17,12 +17,12 @@ void run(string call) {
 
 int main() {
     vector<string> lista;
-    // lista.push_back("start /wait ./insertion/cpp/insertionNomes.exe ");
-    // lista.push_back("start /wait ./insertion/cpp/insertionNums.exe ");
-    // lista.push_back("start /wait ./insertion/cpp/insertionPessoa.exe ");
+    lista.push_back("start /wait ./insertion/cpp/insertionNomes.exe ");
+    lista.push_back("start /wait ./insertion/cpp/insertionNums.exe ");
+    lista.push_back("start /wait ./insertion/cpp/insertionPessoa.exe ");
     lista.push_back("start /wait go run ./insertion/golang/insertionNomes.go ");
-    // lista.push_back("start /wait go run ./insertion/golang/insertionNums.go ");
-    // lista.push_back("start /wait go run ./insertion/golang/insertionPessoa.go ");
+    lista.push_back("start /wait go run ./insertion/golang/insertionNums.go ");
+    lista.push_back("start /wait go run ./insertion/golang/insertionPessoa.go ");
     // lista.push_back("start /wait ./quick/cpp/quickNomes.exe ");
     // lista.push_back("start /wait ./quick/cpp/quickNums.exe ");
     // lista.push_back("start /wait ./quick/cpp/quickPessoa.exe ");

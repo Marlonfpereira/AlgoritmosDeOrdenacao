@@ -14,31 +14,35 @@ type Pessoa struct {
 	name   string
 }
 
-func partition(arr []Pessoa, low, high int, comp, swap *int) ([]Pessoa, int) {
-	pivot := arr[high]
-	i := low
-	for j := low; j < high; j++ {
-		*comp++
-		if arr[j].codigo < pivot.codigo {
-			arr[i], arr[j] = arr[j], arr[i]
+func QuickSort(values []Pessoa, began, end int, comp, swap *uint64) []Pessoa {
+	i := began
+	j := end - 1
+	pivo := values[(began+end)/2]
+
+	for i <= j {
+		for values[i].codigo < pivo.codigo || (values[i].codigo == pivo.codigo && values[i].name < pivo.name) {
+			i++
+			*comp += 3
+		}
+		for values[j].codigo > pivo.codigo || (values[j].codigo == pivo.codigo && values[j].name > pivo.name) {
+			j--
+			*comp += 3
+		}
+		if i <= j {
+			values[i], values[j] = values[j], values[i]
 			*swap++
 			i++
+			j--
 		}
 	}
-	arr[i], arr[high] = arr[high], arr[i]
-	*swap++
-	return arr, i
-}
 
-func quickSort(arr []Pessoa, low, high int, comp, swap *int) []Pessoa {
-	*comp++
-	if low < high {
-		var p int
-		arr, p = partition(arr, low, high, comp, swap)
-		arr = quickSort(arr, low, p-1, comp, swap)
-		arr = quickSort(arr, p+1, high, comp, swap)
+	if j > began {
+		QuickSort(values, began, j+1, comp, swap)
 	}
-	return arr
+	if i < end {
+		QuickSort(values, i, end, comp, swap)
+	}
+	return values
 }
 
 func main() {
@@ -54,7 +58,7 @@ func main() {
 	defer input.Close()
 
 	vetor := make([]Pessoa, 0)
-	var comp, swap int
+	var comp, swap uint64
 
 	num, err := strconv.Atoi(os.Args[1])
 
@@ -69,18 +73,11 @@ func main() {
 		vetor = append(vetor, aux)
 	}
 
-	// for _, v := range vetor {
-	// 	fmt.Printf("%d %s\n", v.codigo, v.name)
-	// }
-	// println()
 
 	inicio := time.Now()
-	quickSort(vetor, 0, num-1, &comp, &swap)
+	QuickSort(vetor, 0, num, &comp, &swap)
 	fim := time.Now()
 
-	// for _, v := range vetor {
-	// 	fmt.Printf("%d %s\n", v.codigo, v.name)
-	// }
 
 	fmt.Fprintf(output, "%s,%v,%d,%d\n", os.Args[1], float64(fim.Sub(inicio).Seconds()), comp, swap)
 }

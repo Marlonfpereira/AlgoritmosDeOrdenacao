@@ -37,15 +37,16 @@ void quicksort(vector<T> &values, int began, int end, unsigned long &comp, unsig
     pivo = values[(began + end) / 2];
     while (i <= j)
     {
-        while (values[i].name < pivo.name && i < end)
+        while (values[i].codigo < pivo.codigo || (values[i].codigo == pivo.codigo && values[i].name < pivo.name))
         {
             i++;
+            comp += 3;
         }
-        while (values[j].name > pivo.name && j > began)
+        while (values[j].codigo > pivo.codigo || (values[j].codigo == pivo.codigo && values[j].name > pivo.name))
         {
             j--;
+            comp += 3;
         }
-        comp++;
         if (i <= j)
         {
             aux = values[i];
@@ -90,6 +91,12 @@ int main(int argc, char *argv[2])
     quicksort(vetor, 0, size(vetor), comp, swap);
 
     fim = clock();
+
+    // for (Pessoa pessoa : vetor)
+    // {
+    //     output << pessoa.codigo << "\t" << pessoa.name << "\n";
+    // }
+
     output << argv[1] << "," << (float)(((fim - inicio) + 0.0) / CLOCKS_PER_SEC) << "," << comp << "," << swap << "\n";
 
     return 0;

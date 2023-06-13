@@ -21,16 +21,13 @@ public:
     {
         cout << codigo << ' ' << name << endl;
     }
-    bool operator<(Pessoa b)
-    {
-        return codigo < b.codigo;
-    }
 };
 
 int main(int argc, char *argv[2])
 {
     ifstream input("pessoa 1.txt");
     ofstream output("./insCppPessoa.txt", ios_base::app);
+    
     vector<Pessoa> vetor;
     unsigned long comp = 0, swap = 0;
     clock_t inicio, fim;
@@ -50,12 +47,6 @@ int main(int argc, char *argv[2])
         vetor.push_back(Pessoa(id, nome));
     }
 
-    // for (int i = 0; i < size(vetor) - 1; i++)
-    // {
-    //     cout << vetor[i].codigo << " " << vetor[i].name << endl;
-    // }
-    // cout << endl;
-
     inicio = clock();
 
     for (int i = 0; i < size(vetor) - 1; i++)
@@ -63,8 +54,8 @@ int main(int argc, char *argv[2])
         Pessoa aux;
         for (int j = i + 1; j > 0; j--)
         {
-            comp++;
-            if (vetor[j] < vetor[j - 1])
+            comp += 3;
+            if (vetor[j].codigo < vetor[j - 1].codigo || (vetor[j].codigo == vetor[j - 1].codigo && vetor[j].name < vetor[j - 1].name))
             {
                 aux = vetor[j];
                 vetor[j] = vetor[j - 1];
@@ -77,13 +68,7 @@ int main(int argc, char *argv[2])
     }
 
     fim = clock();
-    
-    // for (int i = 0; i < size(vetor) - 1; i++)
-    // {
-    //     cout << vetor[i].codigo << " " << vetor[i].name << endl;
-    // }
-
-    output << argv[1] << "," << (float)(((fim - inicio) + 0.0) / CLOCKS_PER_SEC) << "," << comp << "," << swap << "\n";
+    output << argv[1] << "," << float(((fim - inicio) + 0.0) / CLOCKS_PER_SEC) << "," << comp << "," << swap << "\n";
 
     return 0;
 }

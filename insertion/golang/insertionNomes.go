@@ -14,6 +14,7 @@ func main() {
 		panic(err)
 	}
 	defer input.Close()
+
 	output, err := os.OpenFile("./insGoNomes.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		panic(err)
@@ -32,12 +33,9 @@ func main() {
 		vetor = append(vetor, aux)
 	}
 
-	// for _, v := range vetor {
-	// 	fmt.Printf("%s, ", v)
-	// }
-	// println("\nsort\n")
 
 	inicio := time.Now()
+	
 	for i := 0; i < len(vetor)-1; i++ {
 		for j := i + 1; j > 0; j-- {
 			comp++
@@ -52,11 +50,8 @@ func main() {
 			}
 		}
 	}
-	fim := time.Now()
 
-	// for _, v := range vetor {
-	// 	fmt.Printf("%s, ", v)
-	// }
+	fim := time.Now()
 
 	fmt.Fprintf(output, "%s,%v,%d,%d\n", os.Args[1], float64(fim.Sub(inicio).Seconds()), comp, swap)
 }

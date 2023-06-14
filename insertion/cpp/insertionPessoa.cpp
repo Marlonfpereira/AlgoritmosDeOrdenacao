@@ -29,7 +29,7 @@ int main(int argc, char *argv[2])
     ofstream output("./insCppPessoa.txt", ios_base::app);
     
     vector<Pessoa> vetor;
-    unsigned long comp = 0, swap = 0;
+    unsigned long long comp = 0, swap = 0;
     clock_t inicio, fim;
 
     for (int i = 0; i < atoi(argv[1]); i++)

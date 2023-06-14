@@ -9,7 +9,7 @@ int main(int argc, char *argv[2])
     std::ofstream output("./insCppNums.txt", std::ios_base::app);
     std::vector<int> vetor;
     int aux;
-    unsigned long comp = 0, swap = 0;
+    unsigned long long comp = 0, swap = 0;
     clock_t inicio, fim;
 
     for (int i = 0; i < std::atoi(argv[1]); i++)
